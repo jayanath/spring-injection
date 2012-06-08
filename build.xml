@@ -1,0 +1,47 @@
+<!-- A very simple build file for our project-->
+<project name="spring-injection" basedir="." default="run">
+	<!-- Define our properties, we can put these in a properties file later-->	
+    <property name="src.dir"     value="src"/>
+    <property name="bin.dir"   value="bin"/>
+	<property name="lib.dir" 	 value="lib"/>
+	<property name="config.dir"  value="conf"/>
+	<property name="release.dir"    value="release"/>
+	<property name="main-class"  value="com.jayanath.spring.Main"/>
+	
+	<!-- Classpath-->
+    <path id="app.classpath">
+    	<fileset dir="${lib.dir}">
+		    <include name="**/*.jar"/>
+		</fileset>
+    	<pathelement location="${config.dir}"/>
+    </path>
+	
+	<!-- Cleanup all the generated classes and jar files -->
+    <target name="clean">
+        <delete dir="${bin.dir}"/>
+    	<delete dir="${release.dir}"/>
+    </target>
+
+	<!-- Compile the source code -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${bin.dir}"/>
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${bin.dir}" classpathref="app.classpath"/>
+	</target>
+
+	<!-- Create a project jar file with no embeded classpaths or main class in the manifest-->
+	<!-- That allows us to change the library versions without rebuilding the jar-->
+	<target name="package" depends="compile">
+		<jar destfile="${release.dir}/${ant.project.name}.jar" basedir="${bin.dir}"/>
+	</target>
+	
+	<!-- Run the application. -->
+    <target name="run" depends="package">
+        <java fork="true" classname="${main-class}">
+			<classpath>
+				<path refid="app.classpath"/>
+                <path location="${release.dir}/${ant.project.name}.jar"/>
+			</classpath>
+		</java>
+    </target>
+
+</project>
