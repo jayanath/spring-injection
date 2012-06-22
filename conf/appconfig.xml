@@ -37,18 +37,20 @@
 		class="com.jayanath.spring.services.impl.Telephone">
 		<property name="serviceName" value="${telephone.service}"/>
 	</bean>
+	
+	<!-- Create a list of services -->
+	<util:list id="services" value-type="com.jayanath.spring.services.Service">
+		<ref bean="FoodService"/>
+		<ref bean="InternetService"/>
+		<ref bean="LaundryService"/>
+		<ref bean="TelephoneService"/>
+	</util:list>
 
 	<!-- Finaly we can inject all the services to a room. Notice how we populate a list and inject it -->
 	<bean id="Room" name="Room" class="com.jayanath.spring.Room">
 		<!-- This is a constructor injection -->
 		<constructor-arg name="roomType" value="Monte Carlo"/>
-		<property name="serviceList">
-			<list>
-				<ref bean="FoodService"/>
-				<ref bean="InternetService"/>
-				<ref bean="LaundryService"/>
-				<ref bean="TelephoneService"/>
-			</list>
-		</property>
+		<property name="serviceList" ref="services"/>
 	</bean>
+	
 </beans>
