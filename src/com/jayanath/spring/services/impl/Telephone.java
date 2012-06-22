@@ -31,7 +31,7 @@ public class Telephone implements Service {
 
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
-		logger.info("INJECTED the service name to Telephone service");
+		logger.info("***Setter Injection: Service name to telephone service instance");
 	}
 	
 }

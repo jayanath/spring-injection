@@ -19,6 +19,7 @@
 	<!-- The Spring framework reads the properties file and set the values for us -->
 	<bean id="InternetService" name="InternetService"
 		class="com.jayanath.spring.services.impl.Internet">
+		<!-- The framework reads the values from the property file and inject them -->
 		<property name="serviceName" value="${internet.service}"/>
 	</bean>
 
@@ -39,6 +40,8 @@
 
 	<!-- Finaly we can inject all the services to a room. Notice how we populate a list and inject it -->
 	<bean id="Room" name="Room" class="com.jayanath.spring.Room">
+		<!-- This is a constructor injection -->
+		<constructor-arg name="roomType" value="Monte Carlo"/>
 		<property name="serviceList">
 			<list>
 				<ref bean="FoodService"/>

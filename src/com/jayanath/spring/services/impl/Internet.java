@@ -31,7 +31,7 @@ public class Internet implements Service {
 
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
-		logger.info("INJECTED the service name to Internet service");
+		logger.info("***Setter Injection: Service name to internet service instance");
 	}
 	
 }

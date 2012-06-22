@@ -31,7 +31,7 @@ public class Laundry implements Service {
 	
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
-		logger.info("INJECTED the service name to Laundry service");
+		logger.info("***Setter Injection: Service name to laundry service instance");
 	}
 	
 
