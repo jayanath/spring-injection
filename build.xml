@@ -1,5 +1,5 @@
 <!-- A very simple build file for our project-->
-<project name="spring-injection" basedir="." default="run">
+<project name="spring-injection" basedir="." default="annotation_run">
 	<!-- Define our properties, we can put these in a properties file later-->	
     <property name="src.dir"     value="src"/>
     <property name="bin.dir"   value="bin"/>
@@ -34,14 +34,26 @@
 		<jar destfile="${release.dir}/${ant.project.name}.jar" basedir="${bin.dir}"/>
 	</target>
 	
-	<!-- Run the application. -->
-    <target name="run" depends="package">
+	<!-- Run the application with xml configuration. -->
+    <target name="xml_run" depends="package">
         <java fork="true" classname="${main-class}">
 			<classpath>
 				<path refid="app.classpath"/>
                 <path location="${release.dir}/${ant.project.name}.jar"/>
 			</classpath>
+        	<arg value="XML"/>
 		</java>
     </target>
 
+	<!-- Run the application with annotation configuration. -->
+    <target name="annotation_run" depends="package">
+        <java fork="true" classname="${main-class}">
+			<classpath>
+				<path refid="app.classpath"/>
+                <path location="${release.dir}/${ant.project.name}.jar"/>
+			</classpath>
+        	<arg value="ANN"/>
+		</java>
+    </target>
+	
 </project>

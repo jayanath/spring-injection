@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.jayanath.spring.config.AppConfig;
+
 /**
- * This is the entry point of our application
+ * This is the entry point of our application.
+ * 
  * @author jayanath.amaranayake
  *
  */
@@ -16,15 +20,26 @@ public class Main {
 	static Logger logger = Logger.getLogger(Main.class);
 	
 	/**
-	 * @param args
+	 * @param args the configuration modes:
+	 * Annotation based or XML based
 	 */
 	public static void main(String[] args) {
-		//this is one way of loading the spring configuration and obtain a spring context
+		Room room;
 		//this is the only place that we have a direct dependency on the Spring API
-		ApplicationContext context = new ClassPathXmlApplicationContext("appconfig.xml");
-		logger.info("Created the ApplicationContext based on the appconfig.xml file");
-		//we can retrieve any bean by name
-		Room room = (Room) context.getBean("Room");
+		//check the configuration mode
+		if(args[0].equals("XML")) {
+			logger.info("Using XML for application configuration");
+			ApplicationContext xmlCtx = new ClassPathXmlApplicationContext("appconfig.xml");
+			room = (Room) xmlCtx.getBean(Room.class);
+			
+		}else {
+			logger.info("ZERO XML. Using Annotations for application configuration");
+			AnnotationConfigApplicationContext annCtx = new AnnotationConfigApplicationContext();
+			annCtx.register(AppConfig.class);
+			annCtx.refresh();
+			room = (Room) annCtx.getBean(Room.class);
+		}
+		
 		logger.info("Got the Room instance");
 		List<String> names = room.getUsedServiceNames();
 		String type = room.getRoomType();
