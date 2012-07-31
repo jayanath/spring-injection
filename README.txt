@@ -9,9 +9,14 @@ Pre-requisites to run the application:
 
 To run the application:
 [1]Download the zip file or clone the source code
+
 [2]If you download the zip file, the file name would look like "jayanath-spring-injection-some_random_number".
    If you want to import the code to an IDE, rename the folder to "spring-injection" before import.
    Otherwise the IDE would create a seperate folder named "spring-injection" during the import.Then when you try to
    run the application, the IDE will try to read the config files from that newly created folder and fail.
+
 [3]Go to the root of the application and type ant. This will call the default ant
    target that compile, package and execute the application.
+
+   Ant targets: annotation_run [default target] - uses annotation based configuration
+                xml_run - uses xml based configuration
